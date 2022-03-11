@@ -1,5 +1,5 @@
 {
-  "name": "MuBench/ReviewSite",
+  "name": "mubench/reviewsite",
   "description": "The MuBench review site component.",
   "require": {
     "monolog/monolog": "1.21.*",

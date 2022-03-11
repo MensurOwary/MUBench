@@ -1,5 +1,5 @@
-FROM openjdk:8-jdk-alpine
-
+# FROM openjdk:8-jdk-alpine
+FROM adoptopenjdk/openjdk11:alpine
 
 MAINTAINER Sven Amann <amann@st.informatik.tu-darmstadt.de>
 
@@ -9,7 +9,7 @@ RUN apk update \
  && update-ca-certificates
 
 ENV LANG=C.UTF-8 \
-    GRADLE_VERSION=4.0.2 \
+    GRADLE_VERSION=7.0 \
     GRADLE_HOME=/usr/local/gradle
 ENV PATH=${PATH}:${GRADLE_HOME}/bin
 
@@ -21,8 +21,9 @@ RUN apk update \
       py3-psutil \
       python3 \
       yaml-dev \
+      py3-pip \
  && ln -s /usr/bin/python3 /usr/bin/python \
- && ln -s /usr/bin/pip3 /usr/bin/pip \
+ # && ln -s /usr/bin/pip3 /usr/bin/pip \
  && pip install --upgrade pip \
  \
  # Install runtime dependencies

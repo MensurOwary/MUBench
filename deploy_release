@@ -1,3 +1,5 @@
 #!/bin/bash
 
-./deploy svamann/mubench stable
+# ./deploy svamann/mubench stable
+
+./deploy mansur/mubench stable

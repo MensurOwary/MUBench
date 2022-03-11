@@ -9,9 +9,9 @@ latest=$image:latest
 echo "Building $repo $version..."
 docker build -f docker/Dockerfile -t $repo --build-arg mubench_version=$version .
 
-echo "Deploying $repo $version..."
-docker push $repo
+# echo "Deploying $repo $version..."
+# docker push $repo
 
-echo "Updating $latest..."
-docker tag $repo $latest
-docker push $latest
+# echo "Updating $latest..."
+# docker tag $repo $latest
+# docker push $latest
