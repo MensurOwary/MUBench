@@ -187,7 +187,7 @@ class MethodRetriever extends VoidVisitorAdapter<List<MethodExtractor.MethodCode
                                            boolean ignoreParameters) {
         if (ignoreParameters) {
             String methodSignature1WithoutParameters = methodSignature1.substring(0, methodSignature1.indexOf('('));
-            String methodSignature2WithoutParameters = methodSignature2.substring(0, methodSignature1.indexOf('('));
+            String methodSignature2WithoutParameters = methodSignature2.substring(0, methodSignature2.indexOf('('));
             return methodSignature1WithoutParameters.equals(methodSignature2WithoutParameters);
         } else {
             return methodSignature1.equals(methodSignature2);

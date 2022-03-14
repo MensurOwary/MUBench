@@ -1,4 +1,3 @@
-# FROM openjdk:8-jdk-alpine
 FROM adoptopenjdk/openjdk11:alpine
 
 MAINTAINER Sven Amann <amann@st.informatik.tu-darmstadt.de>
@@ -8,10 +7,17 @@ RUN apk update \
  && apk add ca-certificates wget \
  && update-ca-certificates
 
+# Java 8
+RUN apk add --no-cache openjdk8
+
 ENV LANG=C.UTF-8 \
-    GRADLE_VERSION=7.0 \
-    GRADLE_HOME=/usr/local/gradle
+    GRADLE_VERSION=4.0.2 \
+    GRADLE_HOME=/usr/local/gradle \
+    JAVA_11_HOME=${JAVA_HOME} \
+    JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
+
 ENV PATH=${PATH}:${GRADLE_HOME}/bin
+ENV PATH=/usr/lib/jvm/java-1.8-openjdk/bin/:${PATH}
 
 # Setup pipeline environment
 RUN apk update \
@@ -77,6 +83,7 @@ CMD ["bash"]
 
 RUN \
  ln -s /mubench/mubench.bin/bashrc /root/.bashrc \
+ && echo 'alias java11="${JAVA_11_HOME}/bin/java"' >> ~/.bashrc \
  && echo $mubench_version > VERSION \
  # Setup pipeline
  && pip install -r /mubench/mubench.pipeline/requirements.txt \
@@ -90,6 +97,11 @@ RUN \
  && mkdir findings \
  && touch findings/reviews.sqlite \
  && mv mubench.reviewsite/settings.docker.php mubench.reviewsite/settings.php
+ 
+ RUN \
+ # compiling the utility jar
+ mvn clean package -f /mubench/mubench.utils \
+ && mv /mubench/mubench.utils/target/mubench.utils-0.0.5-SNAPSHOT-jar-with-dependencies.jar /mubench/mubench.pipeline/utils/
 
 # Provide standalone reviewsite
 EXPOSE 80

@@ -130,7 +130,7 @@ class CommandLineArgsRunnerInterface(RunnerInterface):
         return valid_args
 
     def _get_command(self, detector_arguments: Dict[str, str]) -> str:
-        detector_invocation = ["java"] + self.java_options + ["-jar", _quote(self.jar_path)]
+        detector_invocation = ["$JAVA_11_HOME/bin/java"] + self.java_options + ["-jar", _quote(self.jar_path)]
         detector_arguments = self._get_cli_args(detector_arguments)
         command = detector_invocation + _as_list(detector_arguments)
         command = " ".join(command)

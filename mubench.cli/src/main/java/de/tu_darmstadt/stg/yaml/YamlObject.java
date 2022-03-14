@@ -25,6 +25,10 @@ public class YamlObject implements YamlEntity {
         data.put(key, value.getContent());
     }
 
+    public Object get(String key) {
+        return data.get(key);
+    }
+
     private String clean(String value) {
         // SnakeYaml gets confused by CR
         value = value.replaceAll("\r", "");
